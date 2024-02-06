@@ -1,0 +1,21 @@
+import boto3
+
+
+def lambda_handler(event, context):
+    #TODO implement
+    ec2_connection=boto3.resource(service_name="ec2",region_name="us-east-2")
+    filter_ec2={"Name":"tag:Env","Values":["dev"]}
+    for each in ec2_connection.instances.filter(Filters=[filter_ec2]):
+      
+       #the line below only prints the instanceID's
+         #print (each.id)
+
+       #Use below line to stop instances and change same for start
+         each.stop()
+
+
+  #Below message default for success
+    return {
+        'statusCode': 200,
+        'body': 'EC2 instanceID as requested from tags.'
+    }
